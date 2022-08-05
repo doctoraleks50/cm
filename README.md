@@ -37,6 +37,13 @@
     sudo systemctl enable docker
 
 ## 11. Install docker compose
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-## 12. add permissions for docker compose
-    sudo chmod +x /usr/local/bin/docker-compose
+VERSION=$(curl --silent https://api.github.com/repos/docker/compose/releases/latest | grep -Po '"tag_name": "\K.*\d')
+
+## 12. 
+DESTINATION=/usr/local/bin/docker-compose
+
+## 13.
+sudo curl -L https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m) -o $DESTINATION
+
+## 14. add permissions for docker compose
+    sudo chmod 755 $DESTINATION
